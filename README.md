@@ -90,7 +90,16 @@ Install VS Code, then add the **HashiCorp Terraform** extension for syntax highl
 
 ### 7. Grab the lab files
 
-Create a folder on your desktop named `palworld_server_lab`, then download everything from the project folder on GitHub into it (or `git clone` the repo if you'd rather). Open the folder in VS Code.
+Get a copy of this repo on your machine. Either:
+
+- **Download ZIP:** on the repo page, click **Code → Download ZIP**, then extract it.
+- **Clone it**, if you have Git installed:
+
+```powershell
+git clone https://github.com/JPBTriesToIT/palworld_server_lab.git
+```
+
+Open the resulting folder in VS Code.
 
 > **Note:** `Get-PubIP.ps1` runs on *your* machine during `plan`/`apply` to find your public IP, and the code calls Windows PowerShell (`powershell`). If you're on Mac or Linux, install PowerShell 7 and change `powershell` to `pwsh` in `palworld_main.tf`.
 
@@ -336,7 +345,7 @@ After `apply`, Terraform prints these two values. The **instance ID** helps you 
 
 ## Deploy the infrastructure
 
-From the `palworld_server_lab` folder in the VS Code terminal, run:
+From the project folder in the VS Code terminal, run:
 
 ```powershell
 terraform apply
@@ -443,5 +452,7 @@ terraform destroy
 ```
 
 Review the list and type `yes`. This deletes the instance, its disk, and the security group.
+
+> **Run it from the same folder you ran `apply` in.** That folder holds Terraform's state file, which is how it knows what it built. If the folder is deleted, or you extract the ZIP somewhere else, Terraform won't know about the instance, and you'll have to delete the instance and security group by hand in the EC2 console.
 
 Terraform didn't create the `pworld_kp` key pair or your access key, so it won't remove them. Delete both in the AWS console if you're finished with the lab. Finally, check **EC2 → Instances** to confirm the instance shows as terminated.
